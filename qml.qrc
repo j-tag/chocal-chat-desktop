@@ -2,4 +2,17 @@
     <qresource prefix="/">
         <file>main.qml</file>
     </qresource>
+    <qresource prefix="/img">
+        <file>img/back-tile.jpg</file>
+        <file>img/background.jpg</file>
+        <file>img/chocal-logo-512.png</file>
+        <file>img/no-avatar.png</file>
+        <file>img/puresoft-logo.png</file>
+        <file>img/toolbar-about.png</file>
+        <file>img/toolbar-settings.png</file>
+    </qresource>
+    <qresource prefix="/raw">
+        <file>raw/info.wav</file>
+        <file>raw/new-message.wav</file>
+    </qresource>
 </RCC>
