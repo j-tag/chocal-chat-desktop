@@ -3,7 +3,9 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    FileIO.cpp \
+    Settings.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,3 +33,7 @@ QMAKE_TARGET_DESCRIPTION = Chocal Chat desktop application
 QMAKE_TARGET_COPYRIGHT = CopyRight (C) 2012 - 2016 . AllRights Reserved by Pure Soft
 
 RC_ICONS = chocal.ico
+
+HEADERS += \
+    FileIO.hpp \
+    Settings.hpp

@@ -1,6 +1,14 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>About.qml</file>
+        <file>Header.qml</file>
+        <file>MessageDelegate.qml</file>
+        <file>Socket.qml</file>
+        <file>Settings.qml</file>
+        <file>Splash.qml</file>
+        <file>Toolbar.qml</file>
+        <file>UserDelegate.qml</file>
     </qresource>
     <qresource prefix="/img">
         <file>img/back-tile.jpg</file>
