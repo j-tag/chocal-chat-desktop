@@ -21,7 +21,7 @@ ToolBar {
         // Settings button
         ToolButton {
             text: qsTr("Settings")
-            tooltip: qsTr("Server settings")
+            tooltip: qsTr("Chat settings")
             iconSource: "qrc:/img/img/toolbar-settings.png"
 
             onClicked: {

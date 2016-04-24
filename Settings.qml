@@ -99,13 +99,11 @@ Rectangle {
                         return
                     }
 
-                    settings.setValue("ip", txtIp.text)
-                    settings.setValue("port", txtPort.text)
                     settings.setValue("newMessageSound", switchMessageNotification.checked)
                     settings.setValue("infoSound", switchInfoNotification.checked)
                     settings.setValue("locale", languageItems.get(comboLanguage.currentIndex).locale)
                     settings.setValue("localeIndex", comboLanguage.currentIndex)
-                    appendInfoMessage(qsTr("Settings are successfuly saved. You must restart Chocal Server for settings to take effect"))
+                    appendInfoMessage(qsTr("Settings are successfuly saved. You must restart Chocal Chat for settings to take effect"))
                     rect.state = "hide"
                 }
             }

@@ -11,6 +11,7 @@ ApplicationWindow {
 
     property var user_local_ids_index: []
     property string my_user_key
+    property string register_request
 
     // Timer for splash screen
     Timer {
@@ -246,7 +247,7 @@ ApplicationWindow {
     }
 
     // Show a plain text message in the message list
-    function appendTextMessage(sender, json) {
+    function appendTextMessage(json) {
         newMessageSound()
         messageModel.append(json)
         gotoLast()
@@ -265,14 +266,24 @@ ApplicationWindow {
     }
 
     // Show an image message in the message list
-    function appendImageMessage(sender, json) {
+    function appendImageMessage(json) {
         newMessageSound()
         messageModel.append(json)
         gotoLast()
     }
 
+    // Initialize login time, online users
+    function initOnlineUsers(json) {
+        var user = null;
+
+        for (var index = 0; index < json.length; index++) {
+            user = json[index];
+            newUser(user);
+        }
+    }
+
     // Add new user to list
-    function newUser(socket, json) {
+    function newUser(json) {
         var user_local_id = fileio.getNewUserLocalId()
 
         // Set user Avatar
@@ -282,7 +293,6 @@ ApplicationWindow {
 
         // Everything is ok, so add user
         userModel.append({
-                             socket: socket,
                              name: json.name,
                              user_local_id: user_local_id,
                              image: json.image,
@@ -323,9 +333,23 @@ ApplicationWindow {
         return userModel.get(user_local_ids_index[user_local_id])
     }
 
+    // Returns user local id by his name
+    function getUserLocalIdByName(name) {
+        for(var i = 0; i < userModel.count; ++i) {
+            var user = userModel.get(i)
+
+            if(user.name === name) {
+                // Name found
+                return user.user_local_id
+            }
+        }
+        // Not found
+        return -1
+    }
+
     // Sends a plain text message
     function generalSend(string) {
-        socket.sendTextMessage(string);
+        socket.sendTextMessage(string)
     }
 
     // Sends a text message
@@ -359,11 +383,12 @@ ApplicationWindow {
         json.user_key = my_user_key;
     }
 
-    // Get avatar path by user local id
-    function getAvatar(user_local_id) {
+    // Get avatar path by name
+    function getAvatar(name) {
+        var user_local_id = getUserLocalIdByName(name)
 
-        if(user_local_id === undefined || user_local_id === null || user_local_id === ""
-                || !fileio.hasAvatar(user_local_id)) {
+        if(user_local_id === -1 || user_local_id === undefined || user_local_id === null
+                || user_local_id === "" || !fileio.hasAvatar(user_local_id)) {
             return "qrc:/img/img/no-avatar.png"
         }
 
@@ -373,6 +398,25 @@ ApplicationWindow {
     // Check to see if user local id is valid or not
     function isValidUserLocalId(user_local_id) {
         return typeof user_local_ids_index[user_local_id] !== 'undefined'
+    }
+
+    // Try to join chat
+    function joinChat(name, avatar_path) {
+        var json = {
+            type: "register",
+            name: name,
+            image: "", // TODO : Handle avatar
+            image_type: "" // TODO : Handle avatar
+        }
+
+        register_request = JSON.stringify(json)
+        connect()
+    }
+
+    // Connect to Chocal Server
+    function connect() {
+        socket.active = true
+        socket.url = "ws://" + settings.getString("ip") + ":" + settings.getString("port")
     }
 
     // Disconnect from chat

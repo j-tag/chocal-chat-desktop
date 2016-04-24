@@ -168,6 +168,8 @@ Rectangle {
 
                         rect.state = "hide"
                         flipable.flipped = true
+                        // TODO : Handle avatar path
+                        joinChat(txtName.text, "")
                     }
                 }
 

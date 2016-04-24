@@ -5,7 +5,6 @@
 
 FileIO::FileIO()
 {
-	m_userIdCounter = 0;
 }
 
 bool FileIO::write(const QString& source, const QString& data)
@@ -63,7 +62,7 @@ QString FileIO::getAvatarPath(int userLocalId)
 		return 0;
 	}
 
-	if(userLocalId == -1) {
+	if(userLocalId == -2) {
 		return this->m_tmpAvatarDir.path();
 	}
 
