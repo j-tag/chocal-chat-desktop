@@ -5,57 +5,16 @@ ToolBar {
     Row {
         anchors.fill: parent
 
-        // Start button
+        // Leave button
         ToolButton {
-            text: qsTr("Start")
-            tooltip: qsTr("Start Chocal Server")
-            iconSource: "qrc:/img/img/toolbar-start.png"
+            text: qsTr("Leave")
+            tooltip: qsTr("Leave chat")
+            iconSource: "qrc:/img/img/toolbar-leave.png"
 
             onClicked: {
-                var host = settings.getString("ip")
-                var port = settings.getInt("port")
-
-                if(host.trim() === "") {
-                    appendInfoMessage(qsTr("IP address is invalid"))
-                    return
-                }
-
-                if(port === "" || port <= 0 || port >= 65534) {
-                    appendInfoMessage(qsTr("Port number must be in range of 1 and 65534"))
-                    return
-                }
-
-                socket.host = host
-                socket.port = port
-                socket.listen = true
-                appendInfoMessage(qsTr("Chocal Server started on %1").arg(socket.url))
-            }
-        }
-
-        // Stop button
-        ToolButton {
-            text: qsTr("Stop")
-            tooltip: qsTr("Stop Chocal Server")
-            iconSource: "qrc:/img/img/toolbar-stop.png"
-
-            onClicked: {
-                sendInfoMessage(qsTr("Server stoped by admin"))
-                socket.listen = false
-                disconnecAllClients()
-                appendInfoMessage(qsTr("Listening stoped, all connections are closed and Chocal Server is now stoped."))
-            }
-        }
-
-        // Shutdown button
-        ToolButton {
-            text: qsTr("Shutdown")
-            tooltip: qsTr("Shutdown Chocal Server")
-            iconSource: "qrc:/img/img/toolbar-shutdown.png"
-
-            onClicked: {
-                socket.listen = false
-                disconnecAllClients()
-                Qt.quit()
+                disconnect()
+                flipable.flipped = false
+                login.state = "show"
             }
         }
 

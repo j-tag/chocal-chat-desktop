@@ -15,7 +15,7 @@ ApplicationWindow {
     // Timer for splash screen
     Timer {
         interval:2000; running: true; repeat: false
-        onTriggered: flipable.flipped = true
+        onTriggered: login.state = "show"
     }
 
     SoundEffect {
@@ -220,6 +220,15 @@ ApplicationWindow {
     }
     // End flipabel
 
+    // Login box
+    Login {
+        id: login
+
+        anchors.fill: parent
+
+        state: "hide"
+    }
+
     // About box
     About {
         id: about
@@ -367,7 +376,7 @@ ApplicationWindow {
     }
 
     // Disconnect from chat
-    function disconnec() {
+    function disconnect() {
         socket.active = false;
         updateUserLocalIdsIndex()
     }

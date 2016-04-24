@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	// Application details
 	QCoreApplication::setOrganizationName(QStringLiteral("Pure Soft"));
 	QCoreApplication::setOrganizationDomain(QStringLiteral("puresoftware.org"));
-	QCoreApplication::setApplicationName(QStringLiteral("Chocal Server"));
+	QCoreApplication::setApplicationName(QStringLiteral("Chocal Chat"));
 	// Set Version
 	QCoreApplication::setApplicationVersion(VERSION);
 

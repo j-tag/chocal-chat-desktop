@@ -21,52 +21,6 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        // Server IP field
-        Row {
-            width: parent.width
-
-            // Description text
-            Text{
-                text:qsTr("Chocal Server IP address:")
-                width: parent.width / 2
-                wrapMode: Text.WordWrap
-            }
-
-            // Input field
-            TextField {
-                id: txtIp
-                width: parent.width / 2
-                placeholderText: qsTr("i.e. 192.168.1.2")
-                text: settings.getString("ip")
-            }
-        }
-        // End server IP field
-
-        // Port number field
-        Row {
-            width: parent.width
-
-            // Description text
-            Text{
-                text:qsTr("Port number:")
-                width: parent.width / 2
-                wrapMode: Text.WordWrap
-            }
-
-            // Input field
-            TextField{
-                id: txtPort
-                width: parent.width / 2
-                validator: IntValidator {
-                    top: 65534
-                    bottom: 1
-                }
-                placeholderText: qsTr("i.e. 36911")
-                text: settings.getInt("port", "36911")
-            }
-        }
-        // End port number field
-
         // New message notification field
         Row {
             width: parent.width
@@ -129,7 +83,7 @@ Rectangle {
                 width: parent.width / 2
             }
         }
-        // End info notification field
+        // End language field
 
         // Bottom buttons
         Row {
