@@ -75,16 +75,12 @@ ApplicationWindow {
                 source: "qrc:/img/img/background.jpg"
             }
 
-            // Header area
-            Header { id: header }
-            // End header area
-
             // Users area
             ListView {
                 id: userView
 
                 anchors {
-                    top: header.bottom
+                    top: parent.top
                     bottom: parent.bottom
                     left: parent.left
                 }
@@ -154,7 +150,7 @@ ApplicationWindow {
                 id: messageView
 
                 anchors {
-                    top: header.bottom
+                    top: parent.top
                     bottom: parent.bottom
                     left: userView.right
                     right: settingView.left
@@ -176,7 +172,7 @@ ApplicationWindow {
                 id: settingView
 
                 anchors {
-                    top: header.bottom
+                    top: parent.top
                     bottom: parent.bottom
                     right: parent.right
                 }

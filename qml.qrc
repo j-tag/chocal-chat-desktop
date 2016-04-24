@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>About.qml</file>
-        <file>Header.qml</file>
         <file>MessageDelegate.qml</file>
         <file>Socket.qml</file>
         <file>Settings.qml</file>
