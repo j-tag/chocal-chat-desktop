@@ -1,7 +1,6 @@
 import QtQuick 2.5
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.4
-import QtGraphicalEffects 1.0
 
 Rectangle {
     id: rect
@@ -167,40 +166,10 @@ Rectangle {
             // End Avatar field
 
             // Avatar preview
-            Item {
-                id: itmImage
-
-                height: 60
-                width: 70
+            Avatar {
+                id: avatar
                 anchors.horizontalCenter: parent.horizontalCenter
-
-                // Avatar image
-                Image {
-                    id: imgAvatar
-                    height: 60
-                    width: 60
-                    y: 5
-                    x: 10
-
-                    fillMode: Image.PreserveAspectCrop
-                    source: main.getAvatar("")
-
-                    // Circle effect
-                    layer.enabled: true
-                    layer.effect: OpacityMask {
-                        maskSource: Item {
-                            width: imgAvatar.width
-                            height: imgAvatar.height
-                            Rectangle {
-                                anchors.centerIn: parent
-                                width: Math.min(imgAvatar.width, imgAvatar.height)
-                                height: width
-                                radius: Math.min(width, height)
-                            }
-                        }
-                    }
-                }
-                // End avatar image
+                source: main.getAvatar("")
             }
             // End Avatar preview
 

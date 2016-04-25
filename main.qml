@@ -11,9 +11,10 @@ ApplicationWindow {
 
     property var user_local_ids_index: []
     property string my_user_key
+    property string my_name
     property string register_request
 
-    // Timer for splash screen
+    // Timer for login screen
     Timer {
         interval:2000; running: true; repeat: false
         onTriggered: login.state = "show"
@@ -152,12 +153,12 @@ ApplicationWindow {
 
                 anchors {
                     top: parent.top
-                    bottom: parent.bottom
+                    bottom: inputArea.top
                     left: userView.right
                     right: settingView.left
                     topMargin: 40
                 }
-                z: 3
+                z: 2
 
                 spacing: 40
 
@@ -168,6 +169,20 @@ ApplicationWindow {
             }
             // End chat area
 
+            // Input message area
+            InputArea {
+                id: inputArea
+
+                anchors {
+                    bottom: parent.bottom
+                    left: messageView.left
+                    right: messageView.right
+                }
+                z: 3
+                height: 80
+            }
+            // End input message area
+
             // Settings area
             Settings {
                 id: settingView
@@ -177,7 +192,7 @@ ApplicationWindow {
                     bottom: parent.bottom
                     right: parent.right
                 }
-                z: 2
+                z: 4
                 width: main.width / 4
 
                 state: "hide"
@@ -369,8 +384,8 @@ ApplicationWindow {
         var json = {
             type: "image",
             message: string,
-            image: image, // TODO : Image base 64 encode
-            image_type: "TODO" // TODO : Image type
+            image: fileio.encodeImage(image),
+            image_type: fileio.getFileType(image)
         }
         addMyUserKey(json)
 
@@ -419,6 +434,7 @@ ApplicationWindow {
         }
 
         register_request = JSON.stringify(json)
+        my_name = name
         connect()
     }
 

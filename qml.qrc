@@ -9,6 +9,8 @@
         <file>Toolbar.qml</file>
         <file>UserDelegate.qml</file>
         <file>Login.qml</file>
+        <file>InputArea.qml</file>
+        <file>Avatar.qml</file>
     </qresource>
     <qresource prefix="/img">
         <file>img/back-tile.jpg</file>
@@ -19,6 +21,7 @@
         <file>img/toolbar-about.png</file>
         <file>img/toolbar-settings.png</file>
         <file>img/toolbar-leave.png</file>
+        <file>img/inputbar-attachment.png</file>
     </qresource>
     <qresource prefix="/raw">
         <file>raw/info.wav</file>

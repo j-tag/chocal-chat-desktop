@@ -1,6 +1,5 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
-import QtGraphicalEffects 1.0
 
 // Container rectangle
 Rectangle {
@@ -16,44 +15,14 @@ Rectangle {
         id: layout
         spacing: 20
 
-        height: Math.max(itmText.height, itmImage.height) + 20
+        height: Math.max(itmText.height, avatar.height) + 20
 
         // Avatar item
-        Item {
-            id: itmImage
-
-            height: 60
-            width: 70
-
-            // Avatar image
-            Image {
-                id: imgAvatar
-                height: 60
-                width: 60
-                y: 5
-                x: 10
-
-                fillMode: Image.PreserveAspectCrop
-                source: main.getAvatar(name)
-
-                // Circle effect
-                layer.enabled: true
-                layer.effect: OpacityMask {
-                    maskSource: Item {
-                        width: imgAvatar.width
-                        height: imgAvatar.height
-                        Rectangle {
-                            anchors.centerIn: parent
-                            width: Math.min(imgAvatar.width, imgAvatar.height)
-                            height: width
-                            radius: Math.min(width, height)
-                        }
-                    }
-                }
-            }
-            // End avatar image
+        Avatar {
+            id: avatar
+            source: main.getAvatar(name)
         }
-        // End avatar item
+        // End Avatar item
 
         // Text item
         Item {

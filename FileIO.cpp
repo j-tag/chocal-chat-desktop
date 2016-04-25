@@ -116,7 +116,7 @@ QString FileIO::encodeImage(const QString &source)
 
 	QFile file(source);
 	if (!file.open(QFile::ReadOnly))
-		return false;
+		return 0;
 
 	QByteArray bytes(file.readAll());
 	file.close();

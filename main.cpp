@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
 	QLocale locale = settings.getLocale(QStringLiteral("locale"));
 	QLocale::setDefault(locale);
 
+
 	// Load translate texts for current language
 	QTranslator translator;
 	// Look up e.g. :/translations/translations/translate-fa.qm
