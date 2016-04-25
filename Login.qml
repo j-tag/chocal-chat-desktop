@@ -13,6 +13,10 @@ Rectangle {
 
           title: qsTr("Please choose your Avatar")
           folder: shortcuts.pictures
+
+          onAccepted: {
+              avatar.source = dlgAvatar.fileUrl
+          }
     }
 
     // Inner rectangle

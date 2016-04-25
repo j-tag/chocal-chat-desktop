@@ -6,6 +6,11 @@
 #include <QTextStream>
 #include <QTemporaryDir>
 #include <QUrl>
+#include <QBuffer>
+#include <QImage>
+#include <QCryptographicHash>
+#include <QUuid>
+#include <QDebug>
 
 class FileIO : public QObject
 {
@@ -24,6 +29,7 @@ public slots:
 	QString getImagePath(const QString& name);
 	QString decodeImage(const QString& data);
 	QString encodeImage(const QString& source);
+    QString cropEncodeImage(const QUrl &source);
 	QString getFileType(const QString& source);
 	int getNewUserLocalId();
 	QString getMd5Hash(const QString& data);

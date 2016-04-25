@@ -1,7 +1,4 @@
 #include "FileIO.hpp"
-#include <QCryptographicHash>
-#include <QDebug>
-#include <QUuid>
 
 FileIO::FileIO()
 {
@@ -114,14 +111,26 @@ QString FileIO::encodeImage(const QString &source)
 	if (source.isEmpty())
 		return 0;
 
-	QFile file(source);
+    QFile file(source);
 	if (!file.open(QFile::ReadOnly))
 		return 0;
 
-	QByteArray bytes(file.readAll());
+    QByteArray bytes(file.readAll());
 	file.close();
 
-	return QString(bytes.toBase64());
+    return QString(bytes.toBase64());
+}
+
+QString FileIO::cropEncodeImage(const QUrl &source)
+{
+    QByteArray bytes;
+    QBuffer buffer(&bytes, this);
+    QImage image(source.toLocalFile());
+    // Resize image
+    QImage(image.scaled(128, 128, Qt::KeepAspectRatioByExpanding)).save(&buffer, "JPG");
+    buffer.open(QIODevice::WriteOnly);
+
+    return bytes.toBase64();
 }
 
 QString FileIO::getFileType(const QString &source)

@@ -428,8 +428,8 @@ ApplicationWindow {
             json = {
                 type: "register",
                 name: name,
-                image: fileio.encodeImage(avatar_path),
-                image_type: fileio.getFileType(avatar_path)
+                image: fileio.cropEncodeImage(avatar_path),
+                image_type: "jpg" // In fileio.cropEncodeImage() method we convert image format to JPG
             }
         }
 
