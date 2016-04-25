@@ -94,11 +94,6 @@ Rectangle {
                 text: qsTr("Save")
 
                 onClicked: {
-                    if(!txtPort.acceptableInput) {
-                        appendInfoMessage(qsTr("Please enter a port number between 1 and 65534"))
-                        return
-                    }
-
                     settings.setValue("newMessageSound", switchMessageNotification.checked)
                     settings.setValue("infoSound", switchInfoNotification.checked)
                     settings.setValue("locale", languageItems.get(comboLanguage.currentIndex).locale)
