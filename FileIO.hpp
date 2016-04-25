@@ -23,6 +23,8 @@ public slots:
 	QUrl getAvatarUrl(int userLocalId);
 	QString getImagePath(const QString& name);
 	QString decodeImage(const QString& data);
+	QString encodeImage(const QString& source);
+	QString getFileType(const QString& source);
 	int getNewUserLocalId();
 	QString getMd5Hash(const QString& data);
 

@@ -1,11 +1,20 @@
 import QtQuick 2.5
+import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.4
+import QtGraphicalEffects 1.0
 
 Rectangle {
     id: rect
 
     color: "#555"
 
+    // Avatar chooser dialog
+    FileDialog {
+          id: dlgAvatar
+
+          title: qsTr("Please choose your Avatar")
+          folder: shortcuts.pictures
+    }
 
     // Inner rectangle
     Rectangle {
@@ -15,7 +24,7 @@ Rectangle {
         color: "#eee"
 
         width: 512
-        height: 300
+        height: 392
 
         anchors {
             centerIn: parent
@@ -132,6 +141,69 @@ Rectangle {
             }
             // End port number field
 
+            // Avatar field
+            Row {
+                width: parent.width
+
+                // Description text
+                Text{
+                    text:qsTr("Your Avatar:")
+                    width: parent.width / 2
+                    wrapMode: Text.WordWrap
+                }
+
+                // Input button
+                Button {
+                    id: btnAvatar
+                    text: qsTr("Select Avatar...")
+
+                    onClicked: {
+                        dlgAvatar.open()
+                    }
+
+                }
+
+            }
+            // End Avatar field
+
+            // Avatar preview
+            Item {
+                id: itmImage
+
+                height: 60
+                width: 70
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                // Avatar image
+                Image {
+                    id: imgAvatar
+                    height: 60
+                    width: 60
+                    y: 5
+                    x: 10
+
+                    fillMode: Image.PreserveAspectCrop
+                    source: main.getAvatar("")
+
+                    // Circle effect
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        maskSource: Item {
+                            width: imgAvatar.width
+                            height: imgAvatar.height
+                            Rectangle {
+                                anchors.centerIn: parent
+                                width: Math.min(imgAvatar.width, imgAvatar.height)
+                                height: width
+                                radius: Math.min(width, height)
+                            }
+                        }
+                    }
+                }
+                // End avatar image
+            }
+            // End Avatar preview
+
             // Bottom buttons
             Row {
                 spacing: 10
@@ -168,18 +240,12 @@ Rectangle {
 
                         rect.state = "hide"
                         flipable.flipped = true
-                        // TODO : Handle avatar path
-                        joinChat(txtName.text, "")
+                        joinChat(txtName.text, dlgAvatar.fileUrl)
                     }
                 }
 
                 // Close button
                 Button {
-                    anchors {
-                        bottom: parent.bottom
-                        topMargin: 10
-                    }
-
                     text: qsTr("Exit")
                     onClicked: {
                         // Quit app
@@ -248,6 +314,8 @@ Rectangle {
             }
         }
     ]
+
+
 
     // Functions
 

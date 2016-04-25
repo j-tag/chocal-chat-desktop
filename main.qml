@@ -402,11 +402,20 @@ ApplicationWindow {
 
     // Try to join chat
     function joinChat(name, avatar_path) {
-        var json = {
-            type: "register",
-            name: name,
-            image: "", // TODO : Handle avatar
-            image_type: "" // TODO : Handle avatar
+        var json = null
+
+        if(avatar_path.toString() === "") {
+            json = {
+                type: "register",
+                name: name
+            }
+        } else {
+            json = {
+                type: "register",
+                name: name,
+                image: fileio.encodeImage(avatar_path),
+                image_type: fileio.getFileType(avatar_path)
+            }
         }
 
         register_request = JSON.stringify(json)
@@ -422,6 +431,10 @@ ApplicationWindow {
     // Disconnect from chat
     function disconnect() {
         socket.active = false;
+        userModel.clear()
+        messageModel.clear()
+        my_user_key = ""
+        register_request = ""
         updateUserLocalIdsIndex()
     }
 

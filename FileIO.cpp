@@ -109,6 +109,27 @@ QString FileIO::decodeImage(const QString &data)
 	return 0;
 }
 
+QString FileIO::encodeImage(const QString &source)
+{
+	if (source.isEmpty())
+		return 0;
+
+	QFile file(source);
+	if (!file.open(QFile::ReadOnly))
+		return false;
+
+	QByteArray bytes(file.readAll());
+	file.close();
+
+	return QString(bytes.toBase64());
+}
+
+QString FileIO::getFileType(const QString &source)
+{
+	QFileInfo info(source);
+	return info.completeSuffix();
+}
+
 int FileIO::getNewUserLocalId()
 {
 	return m_userIdCounter++;
