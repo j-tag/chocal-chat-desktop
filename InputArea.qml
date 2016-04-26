@@ -5,6 +5,8 @@ import QtQuick.Controls 1.4
 Rectangle {
     id: rect
 
+    property url attachment_path
+
     color: "#eee"
 
     // Avatar chooser dialog
@@ -13,6 +15,15 @@ Rectangle {
 
           title: qsTr("Please choose the attachment photo")
           folder: shortcuts.pictures
+          nameFilters: [ qsTr("Image files (*.jpg *.jpeg *.png)"), qsTr("All files (*)") ]
+
+          onAccepted: {
+              attachment_path = fileUrl
+          }
+
+          onRejected: {
+              attachment_path = ""
+          }
     }
 
     Row {
@@ -45,7 +56,7 @@ Rectangle {
 
             onClicked: {
                 // Find out message has image or not
-                if(dlgAttachment.fileUrl.toString() === "") {
+                if(attachment_path.toString() === "") {
                     // Text message
                     if(txtMessage.text.trim() === "") {
                         return
@@ -53,7 +64,8 @@ Rectangle {
                     sendTextMessage(txtMessage.text)
                 } else {
                     // Image message
-                    sendImageMessage(txtMessage.text, dlgAttachment.fileUrl.toString())
+                    sendImageMessage(txtMessage.text, attachment_path)
+                    attachment_path = ""
                 }
 
                 txtMessage.text = ""

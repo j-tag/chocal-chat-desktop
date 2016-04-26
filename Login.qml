@@ -5,6 +5,8 @@ import QtQuick.Controls 1.4
 Rectangle {
     id: rect
 
+    property url avatar_path
+
     color: "#555"
 
     // Avatar chooser dialog
@@ -13,10 +15,18 @@ Rectangle {
 
           title: qsTr("Please choose your Avatar")
           folder: shortcuts.pictures
+          nameFilters: [ qsTr("Image files (*.jpg *.jpeg *.png)"), qsTr("All files (*)") ]
 
           onAccepted: {
-              avatar.source = dlgAvatar.fileUrl
+              avatar_path = fileUrl
+              avatar.source = fileUrl
           }
+
+          onRejected: {
+              avatar_path = ""
+              avatar.source = "qrc:/img/img/no-avatar.png"
+          }
+
     }
 
     // Inner rectangle
@@ -213,7 +223,7 @@ Rectangle {
 
                         rect.state = "hide"
                         flipable.flipped = true
-                        joinChat(txtName.text, dlgAvatar.fileUrl)
+                        joinChat(txtName.text, avatar_path)
                     }
                 }
 

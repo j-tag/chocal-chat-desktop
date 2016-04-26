@@ -29,6 +29,7 @@ public slots:
 	QString getImagePath(const QString& name);
 	QString decodeImage(const QString& data);
 	QString encodeImage(const QString& source);
+    QString encodeImage(const QUrl& source);
     QString cropEncodeImage(const QUrl &source);
 	QString getFileType(const QString& source);
 	int getNewUserLocalId();

@@ -121,6 +121,11 @@ QString FileIO::encodeImage(const QString &source)
     return QString(bytes.toBase64());
 }
 
+QString FileIO::encodeImage(const QUrl &source)
+{
+    return this->encodeImage(source.toLocalFile());
+}
+
 QString FileIO::cropEncodeImage(const QUrl &source)
 {
     QByteArray bytes;
