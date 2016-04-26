@@ -44,7 +44,6 @@ bool FileIO::setUserAvatar(int userLocalId, const QString &data)
 	}
 
 	QString avatar_path = this->getAvatarPath(userLocalId);
-
 	return this->decodeAndWrite(avatar_path, data);
 }
 
@@ -63,7 +62,8 @@ QString FileIO::getAvatarPath(int userLocalId)
 		return this->m_tmpAvatarDir.path();
 	}
 
-	return m_tmpAvatarDir.path().append("/").append(userLocalId);
+    // Used QString::number() to get around a bug in windows that generates invalid characters
+    return m_tmpAvatarDir.path().append("/").append(QString::number(userLocalId));
 }
 
 QUrl FileIO::getAvatarUrl(int userLocalId)
