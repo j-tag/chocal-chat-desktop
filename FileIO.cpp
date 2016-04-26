@@ -132,7 +132,7 @@ QString FileIO::cropEncodeImage(const QUrl &source)
     QBuffer buffer(&bytes, this);
     QImage image(source.toLocalFile());
     // Resize image
-    QImage(image.scaled(128, 128, Qt::KeepAspectRatioByExpanding)).save(&buffer, "JPG");
+    QImage(image.scaled(128, 128, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation)).save(&buffer, "JPG");
     buffer.open(QIODevice::WriteOnly);
 
     return bytes.toBase64();
