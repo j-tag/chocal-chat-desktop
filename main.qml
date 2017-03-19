@@ -1,13 +1,17 @@
 import QtQuick 2.5
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.1
 import QtMultimedia 5.5
+import QtQuick.Controls.Material 2.1
 
 ApplicationWindow {
     id: main
     visible: true
-    width: 960
-    height: 640
+    width: 1024
+    height: 768
     title: qsTr("Chocal Chat")
+
+    // Material colors
+    Material.primary: "teal"
 
     property var user_local_ids_index: []
     property string my_user_key
@@ -43,7 +47,7 @@ ApplicationWindow {
     // End message model
 
     // Application toolbar
-    toolBar: Toolbar { id: toolbar }
+    header: Toolbar { id: toolbar }
     // End toolbar
 
     // Background tile picture
@@ -196,8 +200,6 @@ ApplicationWindow {
                 width: main.width / 4
 
                 state: "hide"
-                color: "#eee"
-
             }
             // End settings area
         }

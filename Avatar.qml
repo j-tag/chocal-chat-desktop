@@ -13,8 +13,8 @@ Item {
     // Avatar image
     Image {
         id: imgAvatar
-        height: 60
-        width: 60
+        height: itmImage.height
+        width: itmImage.width - 10
         y: 5
         x: 10
 

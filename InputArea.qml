@@ -1,13 +1,25 @@
 import QtQuick 2.5
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.1
+import QtQuick.Controls.Material 2.1
 
 Rectangle {
     id: rect
 
     property url attachment_path
 
-    color: "#eee"
+    color: Material.background
+
+    onAttachment_pathChanged: {
+        // Find out message has attachment or not and show an indicator on top of input area for that
+        if(attachment_path.toString() === "") {
+            // No attachment is provided
+            rectAttachIndicator.state = "hide"
+        } else {
+            /// Message has attachment
+            rectAttachIndicator.state = "show"
+        }
+    }
 
     // Avatar chooser dialog
     FileDialog {
@@ -26,14 +38,76 @@ Rectangle {
           }
     }
 
+    Rectangle {
+        id: rectAttachIndicator
+        color: "green"
+
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.top
+            margins: 0
+        }
+        state: "hide"
+
+        height: txtAttachmentIndicator.height + 10
+
+        Text {
+            id: txtAttachmentIndicator
+            anchors.centerIn: parent
+            text: qsTr("Attachment file added.")
+            color: "white"
+            font.bold: true
+            wrapMode: Text.WordWrap
+        }
+
+        // Transitions
+        transitions: Transition {
+            // Smoothly resize
+            PropertyAnimation {
+                property: "height"
+                easing.type: Easing.InOutQuad
+                duration: 500
+            }
+        }
+
+        // States
+        states: [
+            // For showing attachment indicator
+            State {
+                name: "show"
+                PropertyChanges {
+                    target: rectAttachIndicator
+                    height: txtAttachmentIndicator.height + 10
+                }
+                PropertyChanges {
+                    target: txtAttachmentIndicator
+                    visible: true
+                }
+            },
+            // For hiding about box
+            State {
+                name: "hide"
+                PropertyChanges {
+                    target: rectAttachIndicator
+                    height: 0
+                }
+                PropertyChanges {
+                    target: txtAttachmentIndicator
+                    visible: false
+                }
+            }
+        ]
+    }
+
     Row {
+        id: rowMain
         anchors.fill: parent
         spacing: 20
 
         // Avatar item
         Avatar {
             id: avatar
-            y: 5
             source: main.getAvatar(my_name)
         }
         // End avatar item
@@ -42,8 +116,18 @@ Rectangle {
         TextArea {
             id: txtMessage
             width: parent.width / 2
-            height: parent.height - 20
+            height: parent.height
             anchors.verticalCenter: parent.verticalCenter
+
+            Keys.onReleased: {
+                // Here we customize behavior of Ctrl+Enter key event to send message
+                if(event.modifiers && Qt.ControlModifier) {
+                    if(event.key === Qt.Key_Return) {
+                        btnSend.clicked()
+                        event.accepted = true
+                    }
+                }
+            }
         }
         // End text area
 
@@ -51,7 +135,6 @@ Rectangle {
         Button {
             id: btnSend
             anchors.verticalCenter: parent.verticalCenter
-            height: 40
             text: qsTr("Send")
 
             onClicked: {
@@ -78,7 +161,6 @@ Rectangle {
         Button {
             id: btnAttachment
             anchors.verticalCenter: parent.verticalCenter
-            height: 40
             Image {
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectFit

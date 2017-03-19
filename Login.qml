@@ -1,13 +1,14 @@
 import QtQuick 2.5
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.1
+import QtQuick.Controls.Material 2.1
 
 Rectangle {
     id: rect
 
     property url avatar_path
 
-    color: "#555"
+    color: "#cc555555"
 
     // Avatar chooser dialog
     FileDialog {
@@ -34,22 +35,36 @@ Rectangle {
         id: rectInner
 
         radius: 10
-        color: "#eee"
+        color: Material.background
 
         width: 512
-        height: 392
+        height: avatar.height + txtWelcome.height + txtError.height + colTitles.height
 
         anchors {
             centerIn: parent
         }
 
+        // Avatar preview
+        Avatar {
+            id: avatar
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                bottom: parent.top
+                bottomMargin: -(avatar.height / 2)
+            }
+            source: main.getAvatar("")
+            height: 185
+            width: 185
+        }
+        // End Avatar preview
+
         // Welcome text
         Text {
             id: txtWelcome
             anchors {
-                top: parent.top
+                top: avatar.bottom
                 horizontalCenter: parent.horizontalCenter
-                margins: 40
+                margins: 20
             }
 
             text: qsTr("Join Chocal Chat to commiunicate with your friends!")
@@ -78,7 +93,6 @@ Rectangle {
             id: colTitles
             anchors {
                 top: txtError.bottom
-                bottom: parent.bottom
                 right: parent.right
                 left: parent.left
                 topMargin: 10
@@ -179,67 +193,6 @@ Rectangle {
             }
             // End Avatar field
 
-            // Avatar preview
-            Avatar {
-                id: avatar
-                anchors.horizontalCenter: parent.horizontalCenter
-                source: main.getAvatar("")
-            }
-            // End Avatar preview
-
-            // Bottom buttons
-            Row {
-                spacing: 10
-
-                // Login button
-                Button {
-                    text: qsTr("Join Chat")
-
-                    onClicked: {
-                        // Check name
-                        if(txtName.text.trim() == "") {
-
-                            showError(qsTr("Name is invalid"))
-                            return
-                        }
-
-                        // Check server IP
-                        if(txtIp.text.trim() == "") {
-
-                            showError(qsTr("Server IP is invalid"))
-                            return
-                        }
-
-                        // Check port number
-                        if(!txtPort.acceptableInput) {
-
-                            showError(qsTr("Please enter a port number between 1 and 65534"))
-                            return
-                        }
-
-                        settings.setValue("name", txtName.text)
-                        settings.setValue("ip", txtIp.text)
-                        settings.setValue("port", txtPort.text)
-
-                        rect.state = "hide"
-                        flipable.flipped = true
-                        joinChat(txtName.text, avatar_path)
-                    }
-                }
-
-                // Close button
-                Button {
-                    text: qsTr("Exit")
-                    onClicked: {
-                        // Quit app
-                        Qt.quit()
-                    }
-                }
-
-            }
-            // End bottom buttons
-
-
         }
         // End main layout
 
@@ -257,6 +210,59 @@ Rectangle {
     // End inner rectangle
 
 
+    // Bottom buttons
+    Row {
+        spacing: 10
+        anchors.top: rectInner.bottom
+        anchors.left: rectInner.left
+
+        // Login button
+        Button {
+            text: qsTr("Join Chat")
+
+            onClicked: {
+                // Check name
+                if(txtName.text.trim() == "") {
+
+                    showError(qsTr("Name is invalid"))
+                    return
+                }
+
+                // Check server IP
+                if(txtIp.text.trim() == "") {
+
+                    showError(qsTr("Server IP is invalid"))
+                    return
+                }
+
+                // Check port number
+                if(!txtPort.acceptableInput) {
+
+                    showError(qsTr("Please enter a port number between 1 and 65534"))
+                    return
+                }
+
+                settings.setValue("name", txtName.text)
+                settings.setValue("ip", txtIp.text)
+                settings.setValue("port", txtPort.text)
+
+                rect.state = "hide"
+                flipable.flipped = true
+                joinChat(txtName.text, avatar_path)
+            }
+        }
+
+        // Close button
+        Button {
+            text: qsTr("Exit")
+            onClicked: {
+                // Quit app
+                Qt.quit()
+            }
+        }
+
+    }
+    // End bottom buttons
 
     // Transitions
     transitions: Transition {
@@ -275,7 +281,7 @@ Rectangle {
             name: "show"
             PropertyChanges {
                 target: rect
-                opacity: .8
+                opacity: 1
                 enabled: true
             }
             PropertyChanges {

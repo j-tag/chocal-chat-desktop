@@ -1,5 +1,5 @@
 import QtQuick 2.5
-import QtQuick.Controls 1.4
+import QtQuick.Controls.Material 2.1
 
 // Container rectangle
 Rectangle {
@@ -8,7 +8,7 @@ Rectangle {
     height: layout.height
     width: userView.width
 
-    color: "#eee"
+    color: Material.background
 
 
     Row {

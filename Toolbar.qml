@@ -1,15 +1,21 @@
 import QtQuick 2.5
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.1
+import QtQuick.Controls.Material 2.1
 
 ToolBar {
+    Material.primary: "white"
     Row {
         anchors.fill: parent
 
         // Leave button
         ToolButton {
             text: qsTr("Leave")
-            tooltip: qsTr("Leave chat")
-            iconSource: "qrc:/img/img/toolbar-leave.png"
+            ToolTip.visible: hovered
+            ToolTip.text: qsTr("Leave chat")
+            contentItem: Image {
+                source: "qrc:/img/img/toolbar-leave.png"
+            }
+
 
             onClicked: {
                 disconnect()
@@ -21,19 +27,27 @@ ToolBar {
         // Settings button
         ToolButton {
             text: qsTr("Settings")
-            tooltip: qsTr("Chat settings")
-            iconSource: "qrc:/img/img/toolbar-settings.png"
+            ToolTip.visible: hovered
+            ToolTip.text: qsTr("Chat settings")
+            contentItem: Image {
+                source: "qrc:/img/img/toolbar-settings.png"
+            }
 
             onClicked: {
                 settingView.state = settingView.state === "show" ? "hide" : "show"
             }
         }
 
+        ToolSeparator {}
+
         // About button
         ToolButton {
             text: qsTr("About")
-            tooltip: qsTr("About application")
-            iconSource: "qrc:/img/img/toolbar-about.png"
+            ToolTip.visible: hovered
+            ToolTip.text: qsTr("About application")
+            contentItem: Image {
+                source: "qrc:/img/img/toolbar-about.png"
+            }
 
             onClicked: {
                 if(about.state === "show") {
