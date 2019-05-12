@@ -1,7 +1,7 @@
 # Chocal Chat Desktop Client
 This repository contains desktop client for Chocal Chat application that supports Linux, Mac and Windows operating systems.
 
-![Chocal Chat](https://puresoftware.org/images/chocal-chat/github/chocal-desktop.png)
+![Chocal Chat](misc/chocal-desktop.png)
 
 # First Things First
 You need to run Chocal Chat Server application on your local network. You can take it from here: https://github.com/J-TAG/chocal-chat-server
